@@ -8,16 +8,16 @@ def create_user(user: schemas.UserCreate, db: Session):
     Создание пользователя в бд
     """
 
-    db_user = models.User(email=user.email, password=user.password)
+    db_user = models.User(username=user.username, password=user.password)
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
     return db_user
 
 
-def get_user(email: str, db: Session):
+def get_user(username: str, db: Session):
     """
-    Получение пользователя по email из бд
+    Получение пользователя по username из бд
     """
 
-    return db.query(models.User).filter(models.User.email == email).first()
+    return db.query(models.User).filter(models.User.username == username).first()

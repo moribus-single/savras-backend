@@ -12,7 +12,7 @@ class AuthenticationService:
 
     @staticmethod
     def register(user: schemas.UserCreate, db: Session):
-        db_user = crud.get_user(email=user.email, db=db)
+        db_user = crud.get_user(username=user.username, db=db)
         if db_user:
             return HTTPException(status_code=400, detail="Already registered")
         return crud.create_user(user=user, db=db)
