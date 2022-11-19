@@ -3,7 +3,7 @@ from user import models, schemas
 from sqlalchemy.orm import Session
 
 
-def create_user(user: schemas.UserCreate, db: Session):
+def create_user(user: schemas.UserInDB, db: Session):
     """
     Создание пользователя в бд
     """
@@ -15,7 +15,7 @@ def create_user(user: schemas.UserCreate, db: Session):
     return db_user
 
 
-def get_user(username: str, db: Session):
+def get_user(username: str, db: Session) -> models.User:
     """
     Получение пользователя по username из бд
     """
