@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 from datetime import timedelta, datetime
-from fastapi import HTTPException, status, Depends
-from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
+from fastapi import HTTPException, status
+from fastapi.security import OAuth2PasswordBearer
 from passlib.context import CryptContext
 from jose import jwt
 
@@ -17,7 +17,7 @@ class AuthenticationService:
     pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
     oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
-    def login(self, form_data: OAuth2PasswordRequestForm, db: Session):
+    def login(self, form_data: schemas.UserInDB, db: Session):
         user = self.authenticate_user(form_data.username, form_data.password, db)
         if not user:
             raise IncorrectDataException

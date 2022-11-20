@@ -1,5 +1,4 @@
 from fastapi import APIRouter, Depends
-from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 
 from user import schemas
@@ -13,7 +12,7 @@ router = APIRouter()
 
 
 @router.post("/login/", tags=["auth"], response_model=Token)
-async def login(*, form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
+async def login(*, form_data: schemas.UserInDB, db: Session = Depends(get_db)):
     return auth.login(form_data, db)
 
 
