@@ -4,13 +4,14 @@ from fastapi import HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from passlib.context import CryptContext
 from jose import jwt
+from decouple import config
 
 from core.Exeptions import IncorrectDataException
 from user import schemas, crud
 
-SECRET_KEY = "80ef76e53481cd7f3ea5226da65ed3c8b1e7a22db9928a302f1dc11f7d19d2aa"
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 60
+SECRET_KEY = config("SECRET_KEY")
+ALGORITHM = config("ALGORITHM")
+ACCESS_TOKEN_EXPIRE_MINUTES = config("ACCESS_TOKEN_EXPIRE_MINUTES")
 
 
 class AuthenticationService:
