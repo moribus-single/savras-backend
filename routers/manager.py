@@ -1,8 +1,6 @@
 from fastapi import APIRouter
 from services.manager import Manager
 
-router = APIRouter()
-
 # will be included into the app
 router = APIRouter()
 # provides functions for preprocessing

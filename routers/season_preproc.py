@@ -1,8 +1,6 @@
 from fastapi import APIRouter
 from services.season_preprocessor import SeasonPreprocessor
 
-router = APIRouter()
-
 # will be included into the app
 router = APIRouter()
 # provides functions for preprocessing
