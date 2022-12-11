@@ -1,5 +1,6 @@
 from typing import List, AnyStr
 from sqlalchemy.orm import Session
+import pandas as pd
 from file import crud
 
 
@@ -9,9 +10,9 @@ class LoaderService:
     """
 
     @staticmethod
-    def load_csv(path: str) -> List[AnyStr]:
-        with open(path, 'r') as file:
-            return file.readlines()
+    def load_csv(filename: str, content: bytes, db: Session):
+        crud.load_file(filename, content, db)
+        ...
 
     @staticmethod
     def load_xlsx(filename: str, content: bytes, db: Session):
