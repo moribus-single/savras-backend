@@ -9,11 +9,14 @@ router = APIRouter()
 loader = LoaderService()
 
 
-@router.get("loadCsv/{filename}&{content}", tags=['loader'])
+@router.get('loadCsv/{filename}&{content}', tags=['loader'])
 async def load_csv(file: UploadFile = File(), db: Session = Depends(get_db)):
     loader.load_csv(file.filename, await file.read(), db)
 
 
 @router.post("/loadXlsx/", tags=['loader'])
 async def load_xlsx(file: UploadFile = File(), db: Session = Depends(get_db)):
-    loader.load_xlsx(file.filename, await file.read(), db)
+    fileid = loader.load_xlsx(file.filename, await file.read(), db)
+    return {
+        'fileid': fileid,
+    }

@@ -5,9 +5,7 @@ from file import crud
 
 
 class LoaderService:
-    """
-    Allows to work with files in format CSV, XLSX
-    """
+    """Allows to work with files in format CSV, XLSX."""
 
     @staticmethod
     def load_csv(filename: str, content: bytes, db: Session):
@@ -18,3 +16,4 @@ class LoaderService:
     def load_xlsx(filename: str, content: bytes, db: Session):
         crud.load_file(filename, content, db)
         ...
+    

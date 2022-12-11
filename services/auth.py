@@ -19,6 +19,7 @@ class AuthenticationService:
     oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
     def login(self, form_data: schemas.UserInDB, db: Session):
+        """Авторизация пользователя."""
         user = self.authenticate_user(form_data.username, form_data.password, db)
         if not user:
             raise IncorrectDataException
@@ -29,28 +30,23 @@ class AuthenticationService:
         return {"access_token": access_token, "token_type": "bearer"}
 
     def register(self, user: schemas.UserInDB, db: Session):
+        """Регистрация пользователя."""
         db_user = crud.get_user(username=user.username, db=db)
         if db_user:
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Already registered")
         user.password = self.get_password_hash(user.password)
         return crud.create_user(user=user, db=db)
 
-    """
-    Проверка полученного пароля
-    """
     def verify_password(self, password, hashed_password):
+        """Проверка полученного пароля."""
         return self.pwd_context.verify(password, hashed_password)
 
-    """
-    Получение хеша пароля
-    """
     def get_password_hash(self, password):
+        """Получение хеша пароля."""
         return self.pwd_context.hash(password)
 
-    """
-    Проверка введенных данных и получение пользователя
-    """
     def authenticate_user(self, username: str, password: str, db: Session):
+        """Проверка введенных данных и получение пользователя."""
         user = crud.get_user(username, db)
         if not user:
             return False
@@ -58,11 +54,9 @@ class AuthenticationService:
             return False
         return user
 
-    """
-    Создание токена
-    """
     @staticmethod
-    def create_access_token(data: dict, expires_delta: timedelta | None = None):
+    def create_access_token(data: dict, expires_delta: timedelta | None = None):  
+        """Создание токена."""
         to_encode = data.copy()
         if expires_delta:
             expire = datetime.utcnow() + expires_delta
