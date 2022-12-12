@@ -7,6 +7,8 @@ from sqlalchemy.orm import Session
 import io
 from os import path
 import json
+import matplotlib.pyplot as plt
+import plotly.express as px
 
 
 class LinearRegres:
@@ -33,11 +35,11 @@ class LinearRegres:
             df = pd.read_excel(write_obj)
             df.to_excel(file_name)
 
-        result_dict = self.linear_regression(file_name)
+        result_dict = self.linear_regression(fileid, file_name)
         self.save_to_db(fileid, result_dict, db)
         return result_dict
 
-    def linear_regression(self, file_path: str):
+    def linear_regression(self, fileid: int, file_path: str):
         """Выполнение линейной регрессии."""
         excel_data_main = pd.read_excel(file_path)
         data_main = pd.DataFrame(excel_data_main)
@@ -67,6 +69,16 @@ class LinearRegres:
         y_result = model.predict(x_train)
         # print(X_train["Time"][0], y_result[0][0], X_train["Time"][-1], y_result[-1][0])
         model_score = model.score(x_train, y_train)
+
+        plt.figure(figsize=(10, 6))
+        plt.scatter(x_train, y_train)
+        plt.plot(x_train, model.predict(x_train), color="red")
+        plt.xlabel("ДАТА")
+        plt.ylabel("НАГРУЗКА")
+        score = str(model.score(x_train, y_train))
+        plt.title("Коэфициент = " + score)
+        plt.savefig(f"visualisation/linear_regression_{fileid}")
+
         return {
             "x_cord_first": x_train["Time"][0].item(),
             "x_cord_second": x_train["Time"][-1].item(),
