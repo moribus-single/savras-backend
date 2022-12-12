@@ -9,11 +9,10 @@ class LoaderService:
 
     @staticmethod
     def load_csv(filename: str, content: bytes, db: Session):
-        crud.load_file(filename, content, db)
-        ...
+        fileid = crud.load_file(filename, content, db)
+        return fileid
 
     @staticmethod
     def load_xlsx(filename: str, content: bytes, db: Session):
-        crud.load_file(filename, content, db)
-        ...
-    
+        fileid = crud.load_file(filename, content, db)
+        return fileid

@@ -8,6 +8,7 @@ def load_file(filename: str, content: bytes, db: Session):
     db.add(db_file)
     db.commit()
     db.refresh(db_file)
+    return db_file.id
 
 
 def get_file(id: int, db: Session):
