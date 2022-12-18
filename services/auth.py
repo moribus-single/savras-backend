@@ -7,7 +7,8 @@ from jose import jwt
 from decouple import config
 
 from core.Exeptions import IncorrectDataException
-from user import schemas, crud
+from models.user import schemas_user as schemas
+from models.user import crud_user as crud
 
 SECRET_KEY = config("SECRET_KEY")
 ALGORITHM = config("ALGORITHM")
