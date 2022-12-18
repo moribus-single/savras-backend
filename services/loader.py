@@ -1,7 +1,5 @@
-from typing import List, AnyStr
 from sqlalchemy.orm import Session
-import pandas as pd
-from file import crud
+from models.file import crud_file as crud
 
 
 class LoaderService:
