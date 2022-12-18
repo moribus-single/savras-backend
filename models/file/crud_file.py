@@ -1,4 +1,4 @@
-from file import models
+from models.file import models_file as models
 
 from sqlalchemy.orm import Session
 

@@ -1,8 +1,8 @@
 import pandas as pd
 import numpy as np
 from sklearn.linear_model import LinearRegression
-from file import crud
-from analysis import crud as ac
+from models.file import crud_file as cf
+from models.analysis import crud_analysis as ca
 from sqlalchemy.orm import Session
 import io
 from os import path
@@ -16,19 +16,19 @@ class LinearRegres:
 
     def get_result(self, fileid: int, db: Session):
         """ "Получение данных из БД."""
-        result = json.loads(ac.get_result(fileid, db)[0])
+        result = json.loads(ca.get_result(fileid, db)[0])
         return result
 
     def save_to_db(self, fileid: int, result_dict: dict, db: Session):
         """Сохранение результатов LinearRegres в БД."""
-        ac.save_result(fileid, result_dict, db)
+        ca.save_result(fileid, result_dict, db)
 
     def make_df(self, fileid: int, db: Session):
         """Cчитывание бинарного файла в датафрейм."""
         file_name = f"data/linear_regression_{fileid}.xlsx"
 
         if not path.exists(file_name):
-            byte_file = crud.get_file(fileid, db)
+            byte_file = cf.get_file(fileid, db)
             write_obj = io.BytesIO()
             write_obj.write(byte_file[0])
             write_obj.seek(0)

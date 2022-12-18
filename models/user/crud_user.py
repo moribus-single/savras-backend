@@ -1,4 +1,5 @@
-from user import models, schemas
+from models.user import models_user as models
+from models.user import schemas_user as schemas
 
 from sqlalchemy.orm import Session
 

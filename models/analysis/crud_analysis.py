@@ -1,4 +1,4 @@
-from analysis import models
+from models.analysis import models_analysis as models
 import json
 from sqlalchemy.orm import Session
 
