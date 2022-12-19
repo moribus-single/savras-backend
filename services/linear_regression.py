@@ -16,12 +16,12 @@ class LinearRegres:
 
     def get_result(self, fileid: int, db: Session):
         """ "Получение данных из БД."""
-        result = json.loads(ca.get_result(fileid, db)[0])
+        result = json.loads(ca.get_result_lr(fileid, db)[0])
         return result
 
     def save_to_db(self, fileid: int, result_dict: dict, db: Session):
         """Сохранение результатов LinearRegres в БД."""
-        ca.save_result(fileid, result_dict, db)
+        ca.save_result_lr(fileid, result_dict, db)
 
     def make_df(self, fileid: int, db: Session):
         """Cчитывание бинарного файла в датафрейм."""
