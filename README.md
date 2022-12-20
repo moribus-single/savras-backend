@@ -1,7 +1,16 @@
 # savras-backend
 # Описание
 Репозиторий back-end'a для проекта Tinkoff "Savras", содержащий в себе эндпоинты для запросов с front-end'а.
-Реализована функция авторизации
+Реализовано: 
+    :white_check_mark: Авторизация / Регистрация
+    :white_check_mark: Загрузка .xlsx файлов
+    :white_check_mark: Выполнение линейной регрессии
+    :white_check_mark: Удаление / Выделение аномалий
+    :white_check_mark: Обычный прогноз prophet
+    :white_check_mark: Нейронный прогноз neuralprophet
+
+Промежуточные / итоговые результаты формата .xlsx сохраняются в data
+Результаты визуализации, как пример для front-end'а, сохраняются в visualisation
 
 # Для запуска необходимо
 Python 3.10 и выше
