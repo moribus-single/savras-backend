@@ -11,6 +11,7 @@ import plotly.express as px
 
 class Anomaly:
     def get_result(self, fileid: int, with_anomaly_bool: bool, db: Session):
+        """Получение результатов поиска аномалий по сохранённым .xlsx файлам."""
         if with_anomaly_bool:
             return f"data/with_anomaly_{fileid}.xlsx"
         return f"data/without_anomaly_{fileid}.xlsx"
@@ -24,7 +25,7 @@ class Anomaly:
     def make_df(
         self, fileid: int, predictions: int, with_anomaly_bool: bool, db: Session
     ):
-        """Cчитывание бинарного файла в датафрейм."""
+        """Cчитывание бинарного файла в датафрейм для Anomaly."""
         file_name = f"data/anomaly_{fileid}.xlsx"
         if not path.exists(file_name):
             byte_file = cf.get_file(fileid, db)
@@ -42,6 +43,7 @@ class Anomaly:
         return self.get_result(fileid, with_anomaly_bool, db)
 
     def find_anomaly(self, fileid: int, predictions: int, data: pd.DataFrame):
+        """Функция поиска аномалий по датафрейму."""
         data = data.loc[data["channel"] == "Чаты"].drop(
             columns=[
                 "Unnamed: 0",
@@ -81,6 +83,7 @@ class Anomaly:
         return df_anom_b, df_not_anom_b
 
     def isolation_forest_anomaly_detection(self, df, column_name, percentage):
+        """Поиск аномалий по методике isolation forest anomaly detection"""
         min_max_scaler = preprocessing.StandardScaler()
         np_scaled = min_max_scaler.fit_transform(df[[column_name]])
         scaled_time_series = pd.DataFrame(np_scaled)

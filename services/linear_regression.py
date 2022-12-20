@@ -23,7 +23,7 @@ class LinearRegres:
         ca.save_result_lr(fileid, result_dict, db)
 
     def make_df(self, fileid: int, db: Session):
-        """Cчитывание бинарного файла в датафрейм."""
+        """Cчитывание бинарного файла в датафрейм для Linear Regression."""
         file_name = f"data/linear_regression_{fileid}.xlsx"
 
         if not path.exists(file_name):

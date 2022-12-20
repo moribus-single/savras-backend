@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 
 
 def save_result_lr(fileid: int, result: dict, db: Session):
-    """Сохранение результата линейной регрессии"""
+    """Сохранение результата линейной регрессии."""
     result = json.dumps(result)
     db_file = models.LinearReg(fileid=fileid, result=result)
     db.add(db_file)
@@ -13,7 +13,7 @@ def save_result_lr(fileid: int, result: dict, db: Session):
 
 
 def get_result_lr(fileid: int, db: Session):
-    """Выдача результата линейной регрессии"""
+    """Выдача результата линейной регрессии."""
     return (
         db.query(models.LinearReg.result)
         .filter(models.LinearReg.fileid == fileid)
@@ -24,6 +24,7 @@ def get_result_lr(fileid: int, db: Session):
 def save_result_anom(
     fileid: int, with_anomaly: bytes, without_anomaly: bytes, db: Session
 ):
+    """Сохранение результатов поиска аномалий."""
     db_file = models.Anomaly(
         fileid=fileid, with_anomaly=with_anomaly, without_anomaly=without_anomaly
     )
@@ -34,10 +35,10 @@ def save_result_anom(
 
 
 def get_result_anom(fileid: int, db: Session):
+    """Получение результатов поиска анномалий."""
     return (
-        db.query(models.Anomaly.result).filter(models.Anomaly.fileid == fileid).first()
+        db.query(models.Anomaly.result)
+        .filter(models.Anomaly.fileid == fileid)
+        .first()
     )
 
-
-# def get_files(db: Session):
-#     return db.query(models.File)

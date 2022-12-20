@@ -14,19 +14,19 @@ router = APIRouter()
 
 @router.post("/linReg/", tags=["linear_regression"])
 async def lin_reg(fileid: int, db: Session = Depends(get_db)):
-    """Эндпоинт линейной регрессии"""
+    """Эндпоинт линейной регрессии."""
     return lr().make_df(fileid, db)
 
 
 @router.get("/linReg/", tags=["linear_regression"])
 async def get_res(fileid: int, db: Session = Depends(get_db)):
-    """Эндпоинт возвращающий результат линейной регрессии"""
+    """Эндпоинт, возвращающий результат линейной регрессии."""
     return lr().get_result(fileid, db)
 
 
 @router.post("/anomaly/", tags=["anomaly"])
 async def post_anomaly(fileid: int, predictions: int, with_anomaly_bool: bool, db: Session = Depends(get_db)):
-    """Эндпоинт поиска аномалий"""
+    """Эндпоинт поиска аномалий."""
     filename = Anomaly().make_df(fileid, predictions, with_anomaly_bool, db)
     return FileResponse(
         filename,
@@ -37,7 +37,7 @@ async def post_anomaly(fileid: int, predictions: int, with_anomaly_bool: bool, d
 
 @router.get("/anomaly/", tags=["anomaly"])
 async def get_anomaly(fileid: int, with_anomaly_bool: bool, db: Session = Depends(get_db)):
-    """Эндпоинт поиска аномалий"""
+    """Эндпоинт, возвращающий результат поиска аномалий."""
     filename = Anomaly().get_result(fileid,with_anomaly_bool, db)
     media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     return FileResponse(
