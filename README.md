@@ -3,12 +3,12 @@
 Репозиторий back-end'a для проекта Tinkoff "Savras", содержащий в себе эндпоинты для запросов с front-end'а.
 Реализовано: 
 
-    :white_check_mark: Авторизация / Регистрация
-    :white_check_mark: Загрузка .xlsx файлов
-    :white_check_mark: Выполнение линейной регрессии
-    :white_check_mark: Удаление / Выделение аномалий
-    :white_check_mark: Обычный прогноз prophet
-    :white_check_mark: Нейронный прогноз neuralprophet
+- :white_check_mark: Авторизация / Регистрация
+- :white_check_mark: Загрузка .xlsx файлов
+- :white_check_mark: Выполнение линейной регрессии
+- :white_check_mark: Удаление / Выделение аномалий
+- :white_check_mark: Обычный прогноз prophet
+- :white_check_mark: Нейронный прогноз neuralprophet
 
 Промежуточные / итоговые результаты формата .xlsx сохраняются в data.
 
