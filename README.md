@@ -28,7 +28,14 @@ Python 3.10 и выше
 2. Проверьте существующие эндпоинты и делайте свои запросы по аналогии
 
 # Контакты разработчиков
-- Фадеев Тимофей tg: @f4vir0
-- Галась Данил tg: @dddnnl
-- Гришкевич Максим tg: @thethebra
+- Back-end:
+  - Фадеев Тимофей tg: @f4vir0
+  - Галась Данил tg: @dddnnl
+  - Гришкевич Максим tg: @thethebra
+- Analytics
+  - Гетто Игорь tg: @igor_getto
+  - Козлов Дмитрий tg: @dmitryscale5
+- Visualisation
+  - Алямовский Артём tg: @alyamovskiyAA
+  
 
