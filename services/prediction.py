@@ -1,10 +1,7 @@
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
-from plotly.offline import download_plotlyjs, init_notebook_mode, plot, iplot
 from plotly import graph_objs as go
 import plotly as plotly
-import plotly.express as px
 import prophet
 from models.file import crud_file as cf
 from models.analysis import crud_analysis as ca
@@ -87,7 +84,7 @@ class Prediction:
 
         # Визуализация
         fig = go.Figure()
-        test = [
+        visualise = [
             go.Scatter(x=df["ds"], y=df["y"], name="fact"),
             go.Scatter(x=forecast["ds"], y=forecast["yhat"], name="prediction"),
             go.Scatter(
@@ -106,7 +103,7 @@ class Prediction:
             ),
             go.Scatter(x=forecast["ds"], y=forecast["trend"], name="trend"),
         ]
-        fig.add_traces(test)
+        fig.add_traces(visualise)
         fig.write_image(f"visualisation/prediction_{fileid}.png")
 
         forecast.to_excel(f"data/prediction_{fileid}.xlsx")

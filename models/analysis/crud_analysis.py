@@ -55,3 +55,21 @@ def get_result_pr(fileid: int, db: Session):
     return (
         db.query(models.Prediction).filter(models.Prediction.fileid == fileid).first()
     )
+
+def save_result_pr_neural(
+    fileid: int, predictions: int, mse: int, mape: int, result: bytes, db: Session
+):
+    """Сохранение результатов нейронного прогнозирования."""
+    db_file = models.PredictionNeural(
+        fileid=fileid, predicts_number=predictions, mse=mse, mape=mape, result=result
+    )
+    db.add(db_file)
+    db.commit()
+    db.refresh(db_file)
+
+
+def get_result_pr_neural(fileid: int, db: Session):
+    """Получение результатов нейронного прогнозирования."""
+    return (
+        db.query(models.PredictionNeural).filter(models.PredictionNeural.fileid == fileid).first()
+    )

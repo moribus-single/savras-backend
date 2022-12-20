@@ -5,6 +5,7 @@ from core.database import get_db
 from services.linear_regression import LinearRegres as lr
 from services.anomaly import Anomaly
 from services.prediction import Prediction
+from services.prediction_neural import PredictionNeural
 from fastapi.responses import FileResponse
 
 
@@ -62,6 +63,28 @@ async def post_prediction(fileid: int, predictions: int, db: Session = Depends(g
 async def get_prediction(fileid: int, db: Session = Depends(get_db)):
     """Эндпоинт, возвращающий результат обычного прогнозирования."""
     filename = Prediction().get_result(fileid, db)
+    media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    return FileResponse(
+        filename,
+        media_type=media_type,
+        filename=filename,
+    )
+
+@router.post("/prediction_neural/", tags=["prediction_neural"])
+async def post_prediction_neural(fileid: int, predictions: int, db: Session = Depends(get_db)):
+    """Эндпоинт обычного прогнозирования."""
+    filename = PredictionNeural().make_df(fileid, predictions, db)
+    return FileResponse(
+        filename,
+        media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        filename=filename,
+    )
+
+
+@router.get("/prediction_neural/", tags=["prediction_neural"])
+async def get_prediction_neural(fileid: int, db: Session = Depends(get_db)):
+    """Эндпоинт, возвращающий результат обычного прогнозирования."""
+    filename = PredictionNeural().get_result(fileid, db)
     media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     return FileResponse(
         filename,

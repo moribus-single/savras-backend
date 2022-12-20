@@ -32,10 +32,11 @@ class Prediction(Base):
 
 
 class PredictionNeural(Base):
-    __tablename__ = "neural_predictions"
+    __tablename__ = "predictions_neural"
 
     id = Column(Integer, primary_key=True, index=True)
     fileid = Column(Integer, unique=True)
-    mae = Column(Float)
+    predicts_number = Column(Integer)
+    mse = Column(Float)
     mape = Column(Float)
     result = Column(LargeBinary)
