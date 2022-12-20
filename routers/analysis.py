@@ -72,7 +72,7 @@ async def get_prediction(fileid: int, db: Session = Depends(get_db)):
 
 @router.post("/prediction_neural/", tags=["prediction_neural"])
 async def post_prediction_neural(fileid: int, predictions: int, db: Session = Depends(get_db)):
-    """Эндпоинт обычного прогнозирования."""
+    """Эндпоинт нейронного прогнозирования."""
     filename = PredictionNeural().make_df(fileid, predictions, db)
     return FileResponse(
         filename,
@@ -83,7 +83,7 @@ async def post_prediction_neural(fileid: int, predictions: int, db: Session = De
 
 @router.get("/prediction_neural/", tags=["prediction_neural"])
 async def get_prediction_neural(fileid: int, db: Session = Depends(get_db)):
-    """Эндпоинт, возвращающий результат обычного прогнозирования."""
+    """Эндпоинт, возвращающий результат нейронного прогнозирования."""
     filename = PredictionNeural().get_result(fileid, db)
     media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     return FileResponse(
