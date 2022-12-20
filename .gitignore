@@ -1,4 +1,9 @@
-.idea
 venv
+*.idea
 *.pyc
-.env
+*.env
+*.xlsx
+*.ipynb
+lightning_logs/*
+data/*
+visualisation/*
