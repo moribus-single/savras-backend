@@ -6,6 +6,7 @@ from models.analysis import crud_analysis as ca
 from sqlalchemy.orm import Session
 from os import path
 import io
+import plotly.express as px
 
 
 class Anomaly:
@@ -67,6 +68,8 @@ class Anomaly:
         df_not_anom = df_anom.loc[df_anom["y_Isolation_Forest_Anomaly"] != True]
         df_not_anom = df_not_anom.drop(columns=["y_Isolation_Forest_Anomaly"])
 
+        fig = px.scatter(df_anom, x="ds", y="y", color="y_Isolation_Forest_Anomaly")
+        fig.write_image(f"visualisation/with_anomaly_{fileid}.png")
         df_anom.to_excel(f"data/with_anomaly_{fileid}.xlsx")
         df_not_anom.to_excel(f"data/without_anomaly_{fileid}.xlsx")
 

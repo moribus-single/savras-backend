@@ -8,7 +8,6 @@ import io
 from os import path
 import json
 import matplotlib.pyplot as plt
-import plotly.express as px
 
 
 class LinearRegres:

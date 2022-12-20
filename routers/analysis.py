@@ -39,8 +39,9 @@ async def post_anomaly(fileid: int, predictions: int, with_anomaly_bool: bool, d
 async def get_anomaly(fileid: int, with_anomaly_bool: bool, db: Session = Depends(get_db)):
     """Эндпоинт поиска аномалий"""
     filename = Anomaly().get_result(fileid,with_anomaly_bool, db)
+    media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     return FileResponse(
         filename,
-        media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        media_type=media_type,
         filename=filename,
     )

@@ -20,18 +20,22 @@ def get_result_lr(fileid: int, db: Session):
         .first()
     )
 
-def save_result_anom(fileid: int, with_anomaly: bytes, without_anomaly: bytes, db: Session):
-    db_file = models.Anomaly(fileid = fileid, with_anomaly = with_anomaly, without_anomaly = without_anomaly)
+
+def save_result_anom(
+    fileid: int, with_anomaly: bytes, without_anomaly: bytes, db: Session
+):
+    db_file = models.Anomaly(
+        fileid=fileid, with_anomaly=with_anomaly, without_anomaly=without_anomaly
+    )
     db.add(db_file)
     db.commit()
     db.refresh(db_file)
     return db_file.id
 
+
 def get_result_anom(fileid: int, db: Session):
-        return (
-        db.query(models.Anomaly.result)
-        .filter(models.Anomaly.fileid == fileid)
-        .first()
+    return (
+        db.query(models.Anomaly.result).filter(models.Anomaly.fileid == fileid).first()
     )
 
 
