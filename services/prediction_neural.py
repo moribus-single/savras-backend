@@ -74,6 +74,7 @@ class PredictionNeural:
 
         nprophet_model = neuralprophet.NeuralProphet()
 
+        metrics1 = nprophet_model.fit(df_train, freq="D")
         future_df = nprophet_model.make_future_dataframe(
             df_train, periods=predictions, n_historic_predictions=len(df_train)
         )
