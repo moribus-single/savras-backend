@@ -4,6 +4,7 @@ from services.auth import AuthenticationService
 from core.database import get_db
 from services.linear_regression import LinearRegres as lr
 from services.anomaly import Anomaly
+from services.prediction import Prediction
 from fastapi.responses import FileResponse
 
 
@@ -39,6 +40,28 @@ async def post_anomaly(fileid: int, predictions: int, with_anomaly_bool: bool, d
 async def get_anomaly(fileid: int, with_anomaly_bool: bool, db: Session = Depends(get_db)):
     """Эндпоинт, возвращающий результат поиска аномалий."""
     filename = Anomaly().get_result(fileid,with_anomaly_bool, db)
+    media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    return FileResponse(
+        filename,
+        media_type=media_type,
+        filename=filename,
+    )
+
+@router.post("/prediction/", tags=["prediction"])
+async def post_prediction(fileid: int, predictions: int, db: Session = Depends(get_db)):
+    """Эндпоинт обычного прогнозирования."""
+    filename = Prediction().make_df(fileid, predictions, db)
+    return FileResponse(
+        filename,
+        media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        filename=filename,
+    )
+
+
+@router.get("/prediction/", tags=["prediction"])
+async def get_prediction(fileid: int, db: Session = Depends(get_db)):
+    """Эндпоинт, возвращающий результат обычного прогнозирования."""
+    filename = Prediction().get_result(fileid, db)
     media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     return FileResponse(
         filename,

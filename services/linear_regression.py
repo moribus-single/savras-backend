@@ -24,7 +24,7 @@ class LinearRegres:
 
     def make_df(self, fileid: int, db: Session):
         """Cчитывание бинарного файла в датафрейм для Linear Regression."""
-        file_name = f"data/linear_regression_{fileid}.xlsx"
+        file_name = f"data/sample_{fileid}.xlsx"
 
         if not path.exists(file_name):
             byte_file = cf.get_file(fileid, db)

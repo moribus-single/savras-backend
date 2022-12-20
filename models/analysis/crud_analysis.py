@@ -31,14 +31,27 @@ def save_result_anom(
     db.add(db_file)
     db.commit()
     db.refresh(db_file)
-    return db_file.id
 
 
 def get_result_anom(fileid: int, db: Session):
     """Получение результатов поиска анномалий."""
-    return (
-        db.query(models.Anomaly.result)
-        .filter(models.Anomaly.fileid == fileid)
-        .first()
-    )
+    return db.query(models.Anomaly).filter(models.Anomaly.fileid == fileid).first()
 
+
+def save_result_pr(
+    fileid: int, predictions: int, mae: int, mape: int, result: bytes, db: Session
+):
+    """Сохранение результатов прогнозирования."""
+    db_file = models.Prediction(
+        fileid=fileid, predicts_number=predictions, mae=mae, mape=mape, result=result
+    )
+    db.add(db_file)
+    db.commit()
+    db.refresh(db_file)
+
+
+def get_result_pr(fileid: int, db: Session):
+    """Получение результатов прогнозирования."""
+    return (
+        db.query(models.Prediction).filter(models.Prediction.fileid == fileid).first()
+    )

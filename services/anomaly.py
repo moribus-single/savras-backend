@@ -26,7 +26,7 @@ class Anomaly:
         self, fileid: int, predictions: int, with_anomaly_bool: bool, db: Session
     ):
         """Cчитывание бинарного файла в датафрейм для Anomaly."""
-        file_name = f"data/anomaly_{fileid}.xlsx"
+        file_name = f"data/sample_{fileid}.xlsx"
         if not path.exists(file_name):
             byte_file = cf.get_file(fileid, db)
             write_obj = io.BytesIO()
@@ -70,8 +70,10 @@ class Anomaly:
         df_not_anom = df_anom.loc[df_anom["y_Isolation_Forest_Anomaly"] != True]
         df_not_anom = df_not_anom.drop(columns=["y_Isolation_Forest_Anomaly"])
 
+        # Визуализация
         fig = px.scatter(df_anom, x="ds", y="y", color="y_Isolation_Forest_Anomaly")
         fig.write_image(f"visualisation/with_anomaly_{fileid}.png")
+
         df_anom.to_excel(f"data/with_anomaly_{fileid}.xlsx")
         df_not_anom.to_excel(f"data/without_anomaly_{fileid}.xlsx")
 

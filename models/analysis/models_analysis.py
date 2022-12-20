@@ -25,6 +25,7 @@ class Prediction(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     fileid = Column(Integer, unique=True)
+    predicts_number = Column(Integer)
     mae = Column(Float)
     mape = Column(Float)
     result = Column(LargeBinary)
