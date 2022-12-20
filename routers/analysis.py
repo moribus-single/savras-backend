@@ -26,9 +26,9 @@ async def get_res(fileid: int, db: Session = Depends(get_db)):
 
 
 @router.post("/anomaly/", tags=["anomaly"])
-async def post_anomaly(fileid: int, predictions: int, with_anomaly_bool: bool, db: Session = Depends(get_db)):
+async def post_anomaly(fileid: int, with_anomaly_bool: bool, db: Session = Depends(get_db)):
     """Эндпоинт поиска аномалий."""
-    filename = Anomaly().make_df(fileid, predictions, with_anomaly_bool, db)
+    filename = Anomaly().make_df(fileid, with_anomaly_bool, db)
     return FileResponse(
         filename,
         media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",

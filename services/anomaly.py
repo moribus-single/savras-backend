@@ -23,7 +23,7 @@ class Anomaly:
         ca.save_result_anom(fileid, with_anomaly, without_anomaly, db)
 
     def make_df(
-        self, fileid: int, predictions: int, with_anomaly_bool: bool, db: Session
+        self, fileid: int, with_anomaly_bool: bool, db: Session
     ):
         """Cчитывание бинарного файла в датафрейм для Anomaly."""
         file_name = f"data/sample_{fileid}.xlsx"
@@ -38,11 +38,11 @@ class Anomaly:
         excel_data_main = pd.read_excel(file_name)
         data = pd.DataFrame(excel_data_main)
 
-        result = self.find_anomaly(fileid, predictions, data)
+        result = self.find_anomaly(fileid, data)
         self.save_to_db(fileid, result[0], result[1], db)
         return self.get_result(fileid, with_anomaly_bool, db)
 
-    def find_anomaly(self, fileid: int, predictions: int, data: pd.DataFrame):
+    def find_anomaly(self, fileid: int, data: pd.DataFrame):
         """Функция поиска аномалий по датафрейму."""
         data = data.loc[data["channel"] == "Чаты"].drop(
             columns=[
@@ -62,9 +62,6 @@ class Anomaly:
         d = {"ds": x, "y": y}
         df_new = pd.DataFrame(d)
         df_new.reset_index(drop=True, inplace=True)
-
-        train_df = df_new.iloc[:-predictions]
-        test_df = df_new.iloc[-predictions:]
 
         df_anom = self.isolation_forest_anomaly_detection(df_new, "y", 0.15)
         df_not_anom = df_anom.loc[df_anom["y_Isolation_Forest_Anomaly"] != True]
